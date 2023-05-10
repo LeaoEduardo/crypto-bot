@@ -11,12 +11,9 @@ load_dotenv("../.env")
 
 BINANCE_API = os.environ.get('BINANCE_API', None)
 BINANCE_SECRET = os.environ.get('BINANCE_SECRET', None)
+TIMESPAN = 30
 
-test = False
-timespam = 30
-coins = []
-
-def get_crypto_info(client, coin_name, exchange_info, interval='1d', start_date=dt.now()-relativedelta(days=30)):
+def get_crypto_info(client, coin_name, exchange_info, interval='1d', start_date=dt.now()-relativedelta(days=TIMESPAN)):
   columns = [
     "open_time",
     "open_price",
@@ -50,6 +47,9 @@ def get_crypto_info(client, coin_name, exchange_info, interval='1d', start_date=
 
 def main():
 
+  test = False
+  coins = []
+
   client = Client(BINANCE_API, BINANCE_SECRET)
   if test:
     client.API_URL = 'https://testnet.binance.vision/api'
@@ -64,7 +64,7 @@ def main():
     if crypto_info is not None:
       dfs.append(crypto_info)
 
-  pd.concat(dfs, ignore_index=True).to_csv("crypto_info.csv")
+  pd.concat(dfs, ignore_index=True).to_csv("data/crypto_info.csv")
 
 if __name__ == '__main__':
   main()
