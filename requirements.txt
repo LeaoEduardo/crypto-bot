@@ -1,5 +1,4 @@
 pandas
-pandas_datareader
-plotly
-tensorflow
-keras
+python-binance
+python-dotenv
+tqdm
