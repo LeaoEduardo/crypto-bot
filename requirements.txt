@@ -2,3 +2,6 @@ pandas
 python-binance
 python-dotenv
 tqdm
+apache-airflow[postgresql]
+alembic
+psycopg2-binary
