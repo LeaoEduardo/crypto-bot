@@ -3,12 +3,9 @@ from datetime import datetime, timedelta
 
 from airflow.decorators import task
 from airflow import DAG
-from dotenv import load_dotenv
 
 from tasks.extract_latest_info import extract_latest_info
 from tasks.load import load
-
-load_dotenv("../.env")
 
 EMAIL = os.environ.get("EMAIL", None)
 
@@ -26,11 +23,11 @@ with DAG(
     description="Update the database with latest info",
     schedule=timedelta(days=1),
     start_date=datetime(2023, 4, 1),
-    catchup=True,
+    catchup=False,
     tags=["etl"],
 ) as dag:
 
-  csv_path = "..data/crypto_info.csv"
+  csv_path = "crypto_info.csv"
 
   @task(task_id="extract_daily_info")
   def extract_daily_info():
@@ -42,6 +39,7 @@ with DAG(
 
   extract_daily_info() >> upload_storage()
 
-  
+if __name__ == '__main__':
+  dag.test()
   
 

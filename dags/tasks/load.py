@@ -1,16 +1,13 @@
-import sys
-sys.path.append("../")
-
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from db.schema import Kline, Coin
 
 def load(
   connection_url: str = "postgresql://postgres:postgres@0.0.0.0:5432/crypto",
-  csv_path: str = "../data/crypto_info.csv"
+  csv_path: str = "crypto_info.csv"
 ):
+  from db.schema import Kline, Coin
   
   dataframe = pd.read_csv(csv_path, index_col=0),
   engine = create_engine(connection_url, echo=True)

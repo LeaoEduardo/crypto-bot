@@ -1,7 +1,7 @@
-pandas
-python-binance
-python-dotenv
-tqdm
-apache-airflow[postgresql]
-alembic
-psycopg2-binary
+pandas>=2.0.1
+python-binance>=1.0.17
+tqdm>=4.65.0
+alembic>=1.10.4
+psycopg2-binary>=2.9.6
+celery>=5.2.7
+build>=0.10.0

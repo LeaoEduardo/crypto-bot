@@ -2,17 +2,14 @@ import os
 from datetime import datetime as dt
 from dateutil.relativedelta import relativedelta
 
-from dotenv import load_dotenv
 from tqdm import tqdm
 from binance import Client
 import pandas as pd
 
-load_dotenv("../.env")
-
 BINANCE_API = os.environ.get('BINANCE_API', None)
 BINANCE_SECRET = os.environ.get('BINANCE_SECRET', None)
 
-def get_crypto_info(client: Client, coin_name: str, exchange_info: dict, interval: str, start_date: dt.datetime):
+def get_crypto_info(client: Client, coin_name: str, exchange_info: dict, interval: str, start_date: dt):
   columns = [
     "open_time",
     "open_price",
