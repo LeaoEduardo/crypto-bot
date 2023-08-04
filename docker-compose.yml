@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    
+  mageai:
+    image: mageai/mageai
+    container_name: mageai_container
+    ports:
+      - "6789:6789"
+    volumes:
+      - "./:/home/src"
+    command: "/app/run_app.sh mage start crypto-bot"
+    env_file:
+      - .env
+
+volumes:
+  db:
+    driver: local

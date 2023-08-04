@@ -1,0 +1,131 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - merge_coins
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: get_coins_binance
+  retry_config: null
+  status: executed
+  type: data_loader
+  upstream_blocks: []
+  uuid: get_coins_binance
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - merge_coins
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: get_coins_cg
+  retry_config: null
+  status: executed
+  type: data_loader
+  upstream_blocks: []
+  uuid: get_coins_cg
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - add_crypto_history
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: merge_coins
+  retry_config: null
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - get_coins_cg
+  - get_coins_binance
+  uuid: merge_coins
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - prepare_for_cointegration
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: add_crypto_history
+  retry_config: null
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - merge_coins
+  uuid: add_crypto_history
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - select_cointegrated_columns
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: prepare_for_cointegration
+  retry_config: null
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - add_crypto_history
+  uuid: prepare_for_cointegration
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: select_cointegrated_columns
+  retry_config: null
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - prepare_for_cointegration
+  uuid: select_cointegrated_columns
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: test
+  retry_config: null
+  status: updated
+  type: scratchpad
+  upstream_blocks: []
+  uuid: test
+callbacks: []
+concurrency_config: {}
+conditionals: []
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: store crypto
+notification_config: {}
+retry_config: {}
+spark_config: {}
+tags: []
+type: python
+updated_at: '2023-08-04 18:46:51'
+uuid: store_crypto
+variables:
+  interval: 1d
+  test: 'False'
+  timespan: 100
+widgets: []
