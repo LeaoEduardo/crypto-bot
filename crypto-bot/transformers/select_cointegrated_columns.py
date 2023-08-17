@@ -27,6 +27,7 @@ def transform(data, *args, **kwargs):
     # Specify your transformation logic here
 
     coins = data.columns
+    coints_file = kwargs["coints_file"]
 
     all_combinations = [[coins[i], coins[j]] for i in range(len(coins)) for j in range(len(coins)) if i != j and j > i]
     combination_pairs = ['-'.join(combination) for combination in all_combinations]
@@ -40,16 +41,19 @@ def transform(data, *args, **kwargs):
         p_value = coint(coins_data.iloc[:, 0], coins_data.iloc[:, 1])[1]
         p_values[combination_pair] = p_value
 
-    cointegrations = list(filter(lambda x: x[1] <= 0.05, p_values.items()))
+    cointegrations = list(filter(lambda x: x[1] <= 0.03, p_values.items()))
+    
+    # min_key = min(p_values, key=p_values.get)
+    # cointegrations = [[min_key, p_values[min_key]]]
 
     pairs = [pair[0].split('-') for pair in cointegrations]
     coins = list(np.unique(np.array(pairs).flatten()))
 
 
-    with open(f"mage_data/crypto-bot/coints.json", "w") as f:
+    with open(coints_file, "w") as f:
         json.dump(cointegrations, f)
 
-    return data[coins]
+    return data[coins].reset_index(names='time')
 
 
 @test

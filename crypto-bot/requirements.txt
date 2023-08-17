@@ -1,6 +1,8 @@
-python-binance>=1.0.17
-tqdm>=4.65.0
-SQLAlchemy>=2.0.19
-psycopg2-binary>=2.9.6
-statsmodels>=0.14.0
-autots>=0.5.8 
+python-binance==1.0.17
+tqdm==4.65.0
+numpy==1.24.2
+statsmodels==0.14.0
+autots==0.5.8 
+scikit-learn==1.3.0
+matplotlib==3.7.2
+tensorflow==2.13.0 

@@ -1,15 +1,15 @@
 version: '3.8'
 services:
-  db:
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - '5432:5432'
-    volumes: 
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  # db:
+  #   image: postgres:14.1-alpine
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #   ports:
+  #     - '5432:5432'
+  #   volumes: 
+  #     - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     
   mageai:
     image: mageai/mageai
@@ -22,6 +22,6 @@ services:
     env_file:
       - .env
 
-volumes:
-  db:
-    driver: local
+# volumes:
+#   db:
+#     driver: local
