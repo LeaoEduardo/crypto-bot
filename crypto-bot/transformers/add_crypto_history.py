@@ -17,15 +17,6 @@ def get_crypto_info(client: Client, coin_name: str, symbols: dict, interval: str
   columns = [
     "open_time",
     "open_price",
-    "high_price",
-    "low_price",
-    "close_price",
-    "volume",
-    "close_time",
-    "quote_asset_volume",
-    "number_of_trades",
-    "taker_buy_base_asset_volume",
-    "taker_buy_quote_asset_volume",
   ]
 
   convert_timestamp_column = lambda x: dt.fromtimestamp(x/1000)
@@ -37,12 +28,10 @@ def get_crypto_info(client: Client, coin_name: str, symbols: dict, interval: str
     timestamp = int(start_date.timestamp()*1000)
     bars = client.get_historical_klines(ticker, interval, timestamp)
     if bars:
-      hist = pd.DataFrame.from_records([dict(zip(columns, bar[:-1])) for bar in bars])
+      hist = pd.DataFrame.from_records([dict(zip(columns, bar[:2])) for bar in bars])
       hist.open_time = hist.open_time.apply(convert_timestamp_column)
-      hist.close_time = hist.close_time.apply(convert_timestamp_column)
-      hist["coin_name"] = coin_name.upper()
-      hist["ticker"] = ticker
-      return hist
+      hist.rename(columns={"open_price":coin_name.upper()}, inplace=True) 
+      return hist.set_index("open_time")
     return None
 
 def extract_latest_info(
@@ -72,7 +61,7 @@ def extract_latest_info(
     if crypto_info is not None:
       dfs.append(crypto_info)
 
-  return pd.concat(dfs, ignore_index=True)
+  return pd.concat(dfs, axis=1)
 
 @transformer
 def transform(data, *args, **kwargs):
@@ -97,7 +86,7 @@ def transform(data, *args, **kwargs):
         }
     params['coins'] = data
 
-    return extract_latest_info(**params)
+    return extract_latest_info(**params).dropna(axis=1)
 
 @test
 def test_output(output, *args) -> None:

@@ -50,7 +50,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - prepare_for_cointegration
+  - export_model
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -64,37 +64,20 @@ blocks:
   uuid: add_crypto_history
 - all_upstream_blocks_executed: true
   color: null
-  configuration: {}
-  downstream_blocks:
-  - select_cointegrated_columns
+  configuration:
+    file_path: null
+  downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: prepare_for_cointegration
+  name: export_model
   retry_config: null
   status: executed
-  type: transformer
+  type: data_exporter
   upstream_blocks:
   - add_crypto_history
-  uuid: prepare_for_cointegration
-- all_upstream_blocks_executed: true
-  color: null
-  configuration: {}
-  downstream_blocks:
-  - time_series_line_chart_for_select_cointegrated_columns_1692119321347
-  - export_forecast
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: select_cointegrated_columns
-  retry_config: null
-  status: executed
-  type: transformer
-  upstream_blocks:
-  - prepare_for_cointegration
-  uuid: select_cointegrated_columns
+  uuid: export_model
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
@@ -103,13 +86,12 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: python
-  name: export_forecast
+  name: divine bush
   retry_config: null
-  status: executed
-  type: data_exporter
-  upstream_blocks:
-  - select_cointegrated_columns
-  uuid: export_forecast
+  status: updated
+  type: scratchpad
+  upstream_blocks: []
+  uuid: divine_bush
 callbacks: []
 concurrency_config: {}
 conditionals: []
@@ -125,38 +107,13 @@ retry_config: {}
 spark_config: {}
 tags: []
 type: python
-updated_at: '2023-08-17 18:06:09'
+updated_at: '2023-08-24 16:59:30'
 uuid: store_crypto
 variables:
+  artifacts_path: mage_data/crypto-bot/artifacts/
   coints_file: mage_data/crypto-bot/coints.json
   forecast_length: 14
-  history_file: mage_data/crypto-bot/history.csv
   interval: 1d
-  predictions_file: mage_data/crypto-bot/predictions.csv
   test: 'False'
   timespan: 365
-widgets:
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    chart_type: time series line chart
-    group_by:
-    - time
-    metrics:
-    - aggregation: average
-      column: MAGIC
-    - aggregation: average
-      column: SUI
-    time_interval: week
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: time series line chart for select_cointegrated_columns 1692119321347
-  retry_config: null
-  status: failed
-  type: chart
-  upstream_blocks:
-  - select_cointegrated_columns
-  uuid: time_series_line_chart_for_select_cointegrated_columns_1692119321347
+widgets: []
