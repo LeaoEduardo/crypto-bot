@@ -66,6 +66,7 @@ def export_data(data, *args, **kwargs):
 
         mlflow.log_params(auto_ts_params)
         mlflow.log_param("coins", list(train_data.columns))
+        mlflow.log_param("last_date", max(train_data.index))
 
         model = AutoTS(
             **(auto_ts_params | {"verbose":-1})        

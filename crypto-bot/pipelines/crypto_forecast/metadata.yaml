@@ -78,20 +78,6 @@ blocks:
   upstream_blocks:
   - add_crypto_history
   uuid: export_model
-- all_upstream_blocks_executed: true
-  color: null
-  configuration: {}
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: divine bush
-  retry_config: null
-  status: updated
-  type: scratchpad
-  upstream_blocks: []
-  uuid: divine_bush
 callbacks: []
 concurrency_config: {}
 conditionals: []
@@ -101,14 +87,16 @@ executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: store crypto
+name: crypto forecast
 notification_config: {}
-retry_config: {}
+retry_config:
+  delay: 1
+  retries: 3
 spark_config: {}
 tags: []
 type: python
-updated_at: '2023-08-24 16:59:30'
-uuid: store_crypto
+updated_at: '2023-08-24 17:25:39'
+uuid: crypto_forecast
 variables:
   artifacts_path: mage_data/crypto-bot/artifacts/
   coints_file: mage_data/crypto-bot/coints.json
